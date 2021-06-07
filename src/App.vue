@@ -1,19 +1,25 @@
-<template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+<template lang="pug">
+    v-app(color="#D6D6D6")
+      v-app-bar( app white )
+        v-col(class="text-center" cols="12")
+          Profile
+      v-navigation-drawer(app dark)
+        Nav
+      v-main
+        router-view.router
 </template>
 
+<script>
+import Nav from './components/Nav-Buttons.vue';
+import Profile from './components/Profile.vue';
+
+export default {
+  components: {
+    Nav,
+    Profile,
+  },
+};
+</script>
+
 <style lang="stylus">
-#app
-  font-family Avenir, Helvetica, Arial, sans-serif
-  -webkit-font-smoothing antialiased
-  -moz-osx-font-smoothing grayscale
-  text-align center
-  color #2c3e50
-  margin-top 60px
 </style>

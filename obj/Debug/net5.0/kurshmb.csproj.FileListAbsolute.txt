@@ -1,0 +1,5 @@
+C:\Users\Acer\Desktop\ueba\курсовая\hgh\kurshmb\obj\Debug\net5.0\kurshmb.csprojAssemblyReference.cache
+C:\Users\Acer\Desktop\ueba\курсовая\hgh\kurshmb\obj\Debug\net5.0\kurshmb.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Acer\Desktop\ueba\курсовая\hgh\kurshmb\obj\Debug\net5.0\kurshmb.AssemblyInfoInputs.cache
+C:\Users\Acer\Desktop\ueba\курсовая\hgh\kurshmb\obj\Debug\net5.0\kurshmb.AssemblyInfo.cs
+C:\Users\Acer\Desktop\ueba\курсовая\hgh\kurshmb\obj\Debug\net5.0\kurshmb.csproj.CoreCompileInputs.cache

@@ -1,0 +1,10 @@
+ v-col(v-for="segment in segments" :key="slave")
+                v-sheet.field( color="white", elevation="5", height="140", width="300" )
+                  v-subheader {{ segment.heading }}
+                  .value(class="red--text lighten-1--text") {{ segment.quantity }}
+            v-col(v-for="stat in stats" :key="none")
+              v-sheet.field( color="white", elevation="5", height="140", width="300" )
+                v-subheader {{ stat.heading }}
+                v-row
+                  v-avatar.ava(color="#FF6600" size="25")
+                  .name(class="red--text lighten-1--text") {{ stat.quantity }}
