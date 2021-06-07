@@ -2,9 +2,9 @@
     v-row.Desk-Top(align='center' justify='center')
       v-row(align='center' justify='center')
         img.logo-icon(src="../assets/logo.png", :width="25")
-      v-list-title.title(v-for="link in links" :key="link.text")
+      v-list-item-title.title(v-for="link in links" :key="link.text")
         v-btn.button(outlined plain raised text @click="route(link.route)")
-          v-list-tile-title {{ link.text }}
+          v-list-item-title {{ link.text }}
 </template>
 <script>
 

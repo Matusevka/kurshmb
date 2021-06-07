@@ -3,13 +3,14 @@
     v-row.logo(align='center' justify='center')
       img.logo-icon(src="../assets/logo.png", alt="alt")
     v-row.text-field(align='center' justify='center')
-      .text-field-center
+      v-row.text-field-center(align='center' justify='center' no-gutters)
         v-text-field.text-field-center-input(
           v-model="username"
           solo hide-details
           label='Username'
           type='text'
           required)
+      v-row.text-field-center(align='center' justify='center' no-gutters)
         v-text-field.text-field-center-input(
           v-model="password"
           solo hide-details
@@ -94,7 +95,7 @@ export default ({
   }
   .logo {
     position relative
-    margin-bottom 0
+    margin-bottom 50px
     margin-right 0
     margin-left 0
     margin-top 3%
@@ -103,12 +104,11 @@ export default ({
         position relative
         vertical-align middle
         width:auto;
-        height:100%;
+        height:100px;
       }
   }
   .text-field {
     width 100%;
-    height 33vh;
     margin 0;
       &-center {
         width 100%;
@@ -117,7 +117,8 @@ export default ({
           &-input {
             padding-right 10px;
             padding-left 10px;
-            margin-top 10px
+            max-width 600px
+            margin-top 15px !important
           }
           &-rules-text {
             margin-top 20px
@@ -134,10 +135,10 @@ export default ({
   }
   .button {
     width 100%;
-    height 34vh;
-    margin 0;
+    margin-top 30px;
     &-center {
       width 100%;
+      max-width 600px;
         &-registration {
           height 56px !important
           color #FFA967

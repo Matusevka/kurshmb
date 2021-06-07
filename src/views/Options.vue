@@ -1,14 +1,12 @@
 <template lang="pug">
-  v-app
-    v-subheader.subheader Участники
-    v-col.size(class="text-right" cols="12")
-      v-btn.delete(color="#D9534F") Удалить
+  .wrp
+    v-row.head( align="center" justify="space-between" no-gutters)
+      v-subheader.subheader Участники
+      v-btn.delete(color="#FF6600" @click="addUser()" ) Создать
     Slaves
 </template>
 
 <script>
-import axios from 'axios';
-
 import Nav from '../components/Nav-Buttons.vue';
 import Profile from '../components/AvatarBox.vue';
 import Footer from '../components/Footer.vue';
@@ -26,15 +24,9 @@ export default {
       segments: [],
     };
   },
-  created() {
-    this.showUsers();
-  },
   methods: {
-    showUsers() {
-      axios.post('http://sopki.space:8080/api/v1/private/users', {
-        method: 'receive',
-        submethod: 'all',
-      });
+    addUser() {
+      this.$root.$emit('toggleAddUserDialog');
     },
   },
 };
@@ -50,5 +42,9 @@ export default {
 }
 .delete{
   margin-right 25px
+}
+
+.head {
+  margin 20px
 }
 </style>

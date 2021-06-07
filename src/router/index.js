@@ -13,6 +13,7 @@ const routes = [{
   path: '/',
   name: 'autorization',
   component: Autorization,
+  meta: { public: true },
 },
 {
   name: 'registration',

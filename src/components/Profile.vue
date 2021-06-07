@@ -1,12 +1,12 @@
 <template lang="pug">
-  v-row
-    v-col(cols="1")
-      v-avatar.ava(color="#FF6600" size="35")
-        img(src="https://cdn.vuetifyjs.com/images/john.jpg", alt="John")
-    v-col(cols="2")
-      span {{user.firstname}} {{user.lastname}}
-      <br>
-      span {{user.email}}
+  .wrp
+    v-list-item.profile-item
+      v-list-item-avatar
+        v-avatar.ava(color="#FF6600" size="35")
+          img(src="https://cdn.vuetifyjs.com/images/john.jpg", alt="John")
+      v-list-item-content
+        v-list-item-title {{user.firstname}} {{user.lastname}}
+        v-list-item-subtitle {{user.email}}
 </template>
 
 <script>
@@ -22,4 +22,8 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
+  .profile-item {
+    padding-right 0
+    padding-left 0
+  }
 </style>

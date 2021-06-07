@@ -5,11 +5,20 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    user: null,
+    user: {},
+    slaves: [],
   },
   mutations: {
     setUser(state, user) {
       state.user = user;
+    },
+
+    setSlaves(state, slaves) {
+      state.slaves = slaves;
+    },
+
+    addSlave(state, slave) {
+      state.slaves.unshift(slave);
     },
   },
   actions: {
