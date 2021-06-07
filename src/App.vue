@@ -9,18 +9,21 @@
         router-view.router
 
       AddUserDialog
+      SlaveDialog
 </template>
 
 <script>
 import Nav from './components/Nav-Buttons.vue';
 import Profile from './components/Profile.vue';
 import AddUserDialog from './components/AddUserDialog.vue';
+import SlaveDialog from './components/SlaveDialog.vue';
 
 export default {
   components: {
     Nav,
     Profile,
     AddUserDialog,
+    SlaveDialog,
   },
 };
 </script>

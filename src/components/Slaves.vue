@@ -18,7 +18,7 @@
                   th Почта
                   th Роль
               tbody
-                tr(v-for="slave in slaves" :key="slave._id")
+                tr(v-for="slave in slaves" :key="slave._id" @click="openSlave(slave)")
                   td {{ slave.firstname }} {{ slave.lastname }}
                   td {{ slave.email }}
                   td {{ slave.role }}
@@ -64,14 +64,9 @@ export default {
         })
         .catch(() => { this.loading = false; });
     },
-    close() {
-      this.login = null;
-      this.firstname = null;
-      this.lastname = null;
-      this.password = null;
-      this.role = null;
-      this.error = null;
-      this.dialog = false;
+
+    openSlave(slave) {
+      this.$root.$emit('openSlaveDialog', slave);
     },
   },
 };
