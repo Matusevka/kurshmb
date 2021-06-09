@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-dialog(v-model="dialog" max-width="800")
+  v-dialog(v-model="dialog" max-width="800" max-height="800")
     v-card
       v-card-title {{slave.firstname}} {{slave.lastname}}
       v-card-text
@@ -131,6 +131,37 @@ export default {
           }
         })
         .catch((error) => { console.log(error); });
+    },
+    close() {
+      this.login = null;
+      this.firstname = null;
+      this.lastname = null;
+      this.password = null;
+      this.role = null;
+      this.error = null;
+      this.dialog = false;
+    },
+    removeUser() {
+      this.loading = true;
+      axios.post('http://sopki.space:8080/api/v1/private/users', {
+        method: 'remove',
+        // eslint-disable-next-line no-underscore-dangle
+        id: this.slave._id,
+      })
+        .then((res) => {
+          console.log(res);
+
+          if (res.data.status === 'success') {
+            this.$store.commit('removeUser', res.data.data);
+            this.close();
+          }
+
+          this.loading = false;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loading = false;
+        });
     },
   },
 
