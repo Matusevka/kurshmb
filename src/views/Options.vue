@@ -2,7 +2,7 @@
   .wrp
     v-row.head( align="center" justify="space-between" no-gutters)
       v-subheader.subheader Участники
-      v-btn.delete(color="#FF6600" @click="addUser()" ) Создать
+      v-btn.create(color="#FF6600" @click="addUser()" ) Создать
     Slaves
 </template>
 
@@ -36,7 +36,7 @@ export default {
 .size{
   wight 50%
 }
-.delete{
+.create{
   margin-right 25px
 }
 

@@ -2,7 +2,8 @@
   v-card
     v-tabs(show-arrows, color="red")
       v-tabs-slider
-      v-tab( v-for="item in slaves" color="black") {{item.name}} {{item.lastname}}
+      v-tab(@click="selectSlave(null)") Все сотрудники
+      v-tab( v-for="item in slaves" :key="item._id" @click="selectSlave(item._id)" color="black") {{item.name}} {{item.lastname}}
 </template>
 
 <script>
@@ -26,6 +27,10 @@ export default {
         .then((res) => {
           if (res.data.status === 'success') this.slaves = res.data.data;
         });
+    },
+
+    selectSlave(id) {
+      this.$store.commit('sortedItem', id);
     },
   },
 };

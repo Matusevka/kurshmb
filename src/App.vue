@@ -3,7 +3,7 @@
       v-app-bar( app white v-if="!$route.meta.public" )
         v-spacer
         Profile
-      v-navigation-drawer(app dark v-if="!$route.meta.public" )
+      v-navigation-drawer(app color="#29333a"  v-if="!$route.meta.public" )
         Nav
       v-main
         router-view.router

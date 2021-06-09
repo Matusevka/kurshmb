@@ -38,7 +38,7 @@ export default {
   computed: {
     slaves: {
       get() {
-        return this.$store.state.slaves;
+        return this.$store.getters.slaves;
       },
 
       set(data) {

@@ -1,10 +1,12 @@
 <template lang="pug">
+  .wrp
     v-row.Desk-Top(align='center' justify='center')
       v-row(align='center' justify='center')
-        img.logo-icon(src="../assets/logo.png", :width="25")
-      v-list-item-title.title(v-for="link in links" :key="link.text")
-        v-btn.button(outlined plain raised text @click="route(link.route)")
-          v-list-item-title {{ link.text }}
+        img.logo-icon(src="../assets/logo.png", :width="50")
+    v-list( nav )
+      v-list-item(v-for="item in links" link :key="item.route" dark )
+        v-list-item-content
+          v-list-item-title(@click="route(item.route)") {{item.text}}
 </template>
 <script>
 
@@ -12,10 +14,8 @@ export default ({
   data() {
     return {
       links: [
-        { text: 'Рабочий стол', route: '/main' },
-        { text: 'Приборная панель', route: '/dashboard' },
+        { text: 'Статистика', route: '/dashboard' },
         { text: 'Участники', route: '/options' },
-        { text: 'Отчёт', route: '/report' },
       ],
     };
   },

@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Autorization from '../views/Autorization.vue';
-import Registration from '../views/Registration.vue';
 import Main from '../views/Main.vue';
 import Dashboard from '../views/Dashboard.vue';
 import Options from '../views/Options.vue';
@@ -14,11 +13,6 @@ const routes = [{
   name: 'autorization',
   component: Autorization,
   meta: { public: true },
-},
-{
-  name: 'registration',
-  path: '/registration',
-  component: Registration,
 },
 {
   name: 'main',

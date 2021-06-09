@@ -1,85 +1,178 @@
 <template lang="pug">
-      .wrp
-          Command.margin
-          v-row.position(justify="space-around" align="center")
-            v-col(cols="12" md="8")
-              SparkLine
-            v-col(cols="8" md="3")
-                v-sheet.field( color="white", elevation="5" )
-                    v-subheader gffghfdvd
-                    .value(class="red--text lighten-1--text") 21%
-                v-sheet.field( color="white", elevation="5" )
-                    v-subheader gffghfdvd
-                    .value(class="red--text lighten-1--text") 21%
-                v-sheet.field( color="white", elevation="5" )
-                      v-subheader gffghfdvd
-                      .value(class="red--text lighten-1--text") 21%
-                v-sheet.field( color="white", elevation="5" )
-                      v-subheader gffghfdvd
-                      .value(class="red--text lighten-1--text") 21%
-                v-sheet.field( color="white", elevation="5" )
-                      v-subheader gffghfdvd
-                      .value(class="red--text lighten-1--text") 21%
+  .wrp
+    Command.margin
+    v-subheader.total-time(v-if="graphData  && graphData.datasets.length") Общее время:
+      span {{formatSec(totalTime)}}
+    v-select.select-range(
+      v-model="range"
+      :items="rangeItems"
+      item-text="name"
+      item-value="value"
+      v-if="graphData  && graphData.datasets.length"
+      outlined
+    )
+    bar( v-if="graphData && graphData.datasets.length" :chart-data="graphData" :width="300" :height="300")
+    v-row.loading-wrp( justify="center" no-gutters v-if="!graphData" )
+      v-progress-circular(
+        size=50
+        width=7
+        color='#FF6600'
+        indeterminate
+      )
+    v-row.no-info-wrp( no-gutters v-if="graphData && !graphData.datasets.length")
+      span Отсутствуют данные о рабочем времени.
+      span Возможно следует обновить Wakatime Id.
+      span
+        router-link( to="/options" tag="a") Подробнее
 </template>
 
 <script>
-import Nav from '../components/Nav-Buttons.vue';
-import Profile from '../components/AvatarBox.vue';
-import Footer from '../components/Footer.vue';
+import Bar from '../components/Bar.vue';
 import Command from '../components/Comand.vue';
-import SparkLine from '../components/SparkLine.vue';
 
 export default {
   components: {
-    Nav,
-    Profile,
-    Footer,
     Command,
-    SparkLine,
+    Bar,
   },
+
   data() {
     return {
-      segments: [
-        { heading: 'Продуктивность', quantity: '21%' },
-        { heading: 'Эффективность', quantity: '17%' },
-      ],
-      stats: [
-        { heading: 'Продуктивные работники', quantity: 'Никита Савчук' },
-        { heading: 'Непродуктивные сотрудники', quantity: 'Алексей Матусевич' },
-        { heading: 'Наибольший оффлайн', quantity: 'Андрей Насонкин' },
+      datacollection: null,
+      totalTime: 0,
+      range: {
+        name: 'Неделя',
+        value: 'Last 7 Days',
+      },
+      rangeItems: [
+        {
+          name: 'Сегодня',
+          value: 'Today',
+        },
+        {
+          name: 'Вчера',
+          value: 'Yesterday',
+        },
+        {
+          name: 'Неделя',
+          value: 'Last 7 Days',
+        },
+        {
+          name: 'Две недели',
+          value: 'Last 14 Days',
+        },
+        {
+          name: 'Месяц',
+          value: 'Last 30 Days',
+        },
       ],
     };
+  },
+
+  computed: {
+    timeData() {
+      return this.$store.state.timetracker.timeRangeData;
+    },
+
+    sortedItem() {
+      return this.$store.state.timetracker.sortedItem;
+    },
+
+    graphData() {
+      if (this.timeData) {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.totalTime = 0;
+
+        const labels = this.timeData.dates;
+        const days = [];
+
+        for (let i = 0; i < this.timeData.data.length; i += 1) {
+          const userInfo = this.timeData.data[i];
+
+          if (this.sortedItem && this.sortedItem !== userInfo._id) {
+            continue;
+          }
+
+          const dayObj = {
+            label: userInfo.firstname,
+            backgroundColor: `#${(Math.random() * 0xFFFFFF << 0).toString(16)}`,
+            data: [],
+          };
+          days.push(dayObj);
+
+          // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+          this.totalTime += userInfo.duration;
+
+          for (let j = 0; j < userInfo.days.length; j += 1) {
+            const day = userInfo.days[j];
+            days[days.length - 1].data.push((day.total / 60 / 60).toFixed(2));
+          }
+        }
+
+        return {
+          labels,
+          datasets: days,
+        };
+      }
+
+      return null;
+    },
+  },
+
+  methods: {
+    formatSec(secs) {
+      let minutes = Math.floor(secs / 60);
+      const hours = Math.floor(minutes / 60);
+      minutes %= 60;
+      return `${(`0${hours}`).slice(-2)}:${(`0${minutes}`).slice(-2)}`;
+    },
+
+    getRandomInt() {
+      return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+    },
+  },
+
+  watch: {
+    range() {
+      this.$store.dispatch('getAllRange', this.range);
+    },
+  },
+
+  created() {
+    this.$store.commit('sortedItem', null);
+    this.$store.dispatch('getAllRange', this.range.value);
   },
 };
 </script>
 
-<style lang="stylus" scoped>
-.subheader{
-  font-size 2em
-}
-.margin{
-  margin-bottom 5px
-}
-.spread{
-  display flex
-  flex-wrap wrap
-  flex-direction row
-  min-width 200px
-}
-.field{
-  width 100%
-  margin-bottom 5px
-}
-.value{
-  text-align center
-  font-size 3em
-}
-.ava{
-  margin-left 15px
-  margin-right 5px
-  width 20%
-}
-.name{
-  width 75%
-}
+<style lang="stylus">
+  .total-time {
+    font-size 20px
+
+    span {
+      margin-left 10px
+      color #f87979
+    }
+  }
+
+  .margin{
+    margin-bottom 5px
+  }
+
+  .loading-wrp {
+    margin-top 30px !important
+  }
+
+  .no-info-wrp {
+    margin 30px !important
+
+    span {
+      margin-right 10px
+    }
+  }
+
+  .select-range {
+    max-width 150px
+    margin-left 16px !important
+  }
 </style>
