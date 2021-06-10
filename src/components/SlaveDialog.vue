@@ -1,7 +1,9 @@
 <template lang="pug">
   v-dialog(v-model="dialog" max-width="800" max-height="800")
     v-card
-      v-card-title {{slave.firstname}} {{slave.lastname}}
+      v-btn.float(color="#FF6600" icon @click="toggle()" )
+          img.picture(src="../assets/close.svg")
+      v-card-title.wight {{slave.firstname}} {{slave.lastname}}
       v-card-text
         v-list
           v-subheader Информация
@@ -35,9 +37,10 @@
       v-divider.dvider
 
       v-card-actions
-        v-btn(color="#FF6600" @click="removeSlave()" ) Удалить
-        v-btn(color="white" @click="isEdit = !isEdit") Редактировать
-        v-btn(color="#FF6600" @click="toggle()" ) Закрыть
+        v-flex
+          v-btn(color="#FFF" @click="removeSlave()" )
+            img.picture(src="../assets/delete.svg")
+          v-btn(color="white" @click="isEdit = !isEdit") Редактировать
 
     v-dialog(v-model="isEdit" max-width="500")
       v-card
@@ -197,6 +200,17 @@ p{
 }
 p1{
   margin-left 10px
+}
+.wight{
+  wight 85%
+}
+.float{
+  float right
+  margin-top 8px
+}
+.picture{
+  height 25px
+  weught auto
 }
 .button{
   margin-left 10px
