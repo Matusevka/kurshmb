@@ -8,7 +8,7 @@ const actions = {
       range,
       method: 'all',
       submethod: 'range',
-    })
+    }, { withCredentials: true })
       .then((response) => commit('timeRangeData', response.data.data))
       .catch((err) => console.log(err));
   },

@@ -14,6 +14,11 @@ export default new Vuex.Store({
       state.user = user;
     },
 
+    removeUser(state) {
+      state.user = {};
+      window.localStorage.removeItem('user');
+    },
+
     setSlaves(state, slaves) {
       state.slaves = slaves;
     },
@@ -37,9 +42,6 @@ export default new Vuex.Store({
         state.slaves.splice(index, 1);
       }
     },
-  },
-  getters: {
-    slaves: (state) => state.slaves,
   },
   actions: {
   },

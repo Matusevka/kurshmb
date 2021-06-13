@@ -23,8 +23,13 @@ export default {
       axios.post('http://sopki.space:8080/api/v1/private/users', {
         method: 'receive',
         submethod: 'all',
-      })
+      }, { withCredentials: true })
         .then((res) => {
+          if (res.data.status === 'notAuth') {
+            this.$store.commit('removeUser');
+            this.$router.replace({ name: 'login' });
+          }
+
           if (res.data.status === 'success') this.slaves = res.data.data;
         });
     },

@@ -25,6 +25,10 @@ export default {
     AddUserDialog,
     SlaveDialog,
   },
+
+  created() {
+    this.$store.commit('setUser', JSON.parse(window.localStorage.getItem('user')));
+  },
 };
 </script>
 

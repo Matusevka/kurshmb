@@ -15,7 +15,7 @@ export default ({
     return {
       links: [
         { text: 'Статистика', route: '/dashboard' },
-        { text: 'Участники', route: '/options' },
+        { text: 'Участники', route: '/slaves' },
       ],
     };
   },

@@ -22,13 +22,11 @@
 <script>
 import Nav from '../components/Nav-Buttons.vue';
 import Profile from '../components/AvatarBox.vue';
-import Footer from '../components/Footer.vue';
 
 export default {
   components: {
     Nav,
     Profile,
-    Footer,
   },
   data() {
     return {

@@ -61,10 +61,9 @@ export default ({
       axios.post('http://sopki.space:8080/api/v1/public/signin', {
         username: this.username,
         password: this.password,
-      })
+      }, { withCredentials: true })
         .then((res) => {
           this.loading = false;
-          console.log(res);
 
           if (res.data.status === 'notExist') {
             this.error = 'Невернй логин или пароль';
@@ -72,13 +71,13 @@ export default ({
           }
 
           if (res.data.status === 'success') {
+            window.localStorage.setItem('user', JSON.stringify(res.data.data));
             this.$store.commit('setUser', res.data.data);
-            this.$router.push({ name: 'main' });
+            this.$router.push({ name: 'slaves' });
           }
         })
-        .catch((err) => {
+        .catch(() => {
           this.loading = false;
-          console.log(err);
         });
     },
   },

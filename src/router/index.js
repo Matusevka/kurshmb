@@ -1,39 +1,32 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Autorization from '../views/Autorization.vue';
-import Main from '../views/Main.vue';
 import Dashboard from '../views/Dashboard.vue';
 import Options from '../views/Options.vue';
-import Report from '../views/Report.vue';
 
 Vue.use(VueRouter);
 
-const routes = [{
-  path: '/',
-  name: 'autorization',
-  component: Autorization,
-  meta: { public: true },
-},
-{
-  name: 'main',
-  path: '/main',
-  component: Main,
-},
-{
-  name: 'options',
-  path: '/options',
-  component: Options,
-},
-{
-  name: 'report',
-  path: '/report',
-  component: Report,
-},
-{
-  name: 'dashboard',
-  path: '/dashboard',
-  component: Dashboard,
-},
+const routes = [
+  {
+    path: '/',
+    redirect: 'slaves',
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Autorization,
+    meta: { public: true },
+  },
+  {
+    name: 'slaves',
+    path: '/slaves',
+    component: Options,
+  },
+  {
+    name: 'dashboard',
+    path: '/dashboard',
+    component: Dashboard,
+  },
 ];
 
 const router = new VueRouter({

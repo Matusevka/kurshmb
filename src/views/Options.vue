@@ -7,12 +7,10 @@
 </template>
 
 <script>
-import Footer from '../components/Footer.vue';
 import Slaves from '../components/Slaves.vue';
 
 export default {
   components: {
-    Footer,
     Slaves,
   },
   data() {

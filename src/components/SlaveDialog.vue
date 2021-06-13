@@ -38,7 +38,7 @@
 
       v-card-actions
         v-flex
-          v-btn(color="#FFF" @click="removeSlave()" )
+          v-btn(color="#FFF" :loading="isLoading" @click="removeSlave()" )
             img.picture(src="../assets/delete.svg")
           v-btn(color="white" @click="isEdit = !isEdit") Редактировать
 
@@ -66,7 +66,7 @@
 
         v-card-actions
           v-row( no-gutters justify="center" )
-            v-btn(color="#FF6600" @click="updateSlave()" ) Обновить
+            v-btn(color="#FF6600" :loading="isLoadingUpt" @click="updateSlave()" ) Обновить
 </template>
 
 <script>
@@ -82,6 +82,8 @@ export default {
       updUser: {},
       error: null,
       mainError: null,
+      isLoadingUpt: false,
+      isLoading: false,
     };
   },
 
@@ -92,11 +94,20 @@ export default {
       this.updUser = {};
       this.isEdit = false;
       this.error = null;
+      this.isLoadingUpt = false;
+      this.isLoading = false;
     },
 
     updateSlave() {
-      axios.post('http://sopki.space:8080/api/v1/private/users', Object.assign(this.updUser, { method: 'update', id: this.slave._id }))
+      this.isLoadingUpt = true;
+
+      axios.post('http://sopki.space:8080/api/v1/private/users', Object.assign(this.updUser, { method: 'update', id: this.slave._id }), { withCredentials: true })
         .then((response) => {
+          if (response.data.status === 'notAuth') {
+            this.$store.commit('removeUser');
+            this.$router.replace({ name: 'login' });
+          }
+
           if (response.data.status === 'invalidFirstname') {
             this.error = 'Имя слишком короткое';
           }
@@ -114,16 +125,27 @@ export default {
             this.$store.commit('updateSlave', this.updUser);
             this.isEdit = false;
           }
+
+          this.isLoadingUpt = false;
         })
-        .catch((error) => console.log(error));
+        .catch(() => {
+          this.isLoadingUpt = false;
+        });
     },
 
     removeSlave() {
+      this.isLoading = true;
+
       axios.post('http://sopki.space:8080/api/v1/private/users', {
         id: this.slave._id,
         method: 'remove',
-      })
+      }, { withCredentials: true })
         .then((response) => {
+          if (response.data.status === 'notAuth') {
+            this.$store.commit('removeUser');
+            this.$router.replace({ name: 'login' });
+          }
+
           if (response.data.status === 'notSuccess') {
             this.mainError = 'Ошибка сервера';
           }
@@ -132,8 +154,12 @@ export default {
             this.$store.commit('removeSlave', this.slave._id);
             this.toggle();
           }
+
+          this.isLoading = false;
         })
-        .catch((error) => { console.log(error); });
+        .catch(() => {
+          this.isLoading = false;
+        });
     },
     close() {
       this.login = null;
@@ -143,28 +169,6 @@ export default {
       this.role = null;
       this.error = null;
       this.dialog = false;
-    },
-    removeUser() {
-      this.loading = true;
-      axios.post('http://sopki.space:8080/api/v1/private/users', {
-        method: 'remove',
-        // eslint-disable-next-line no-underscore-dangle
-        id: this.slave._id,
-      })
-        .then((res) => {
-          console.log(res);
-
-          if (res.data.status === 'success') {
-            this.$store.commit('removeUser', res.data.data);
-            this.close();
-          }
-
-          this.loading = false;
-        })
-        .catch((err) => {
-          console.log(err);
-          this.loading = false;
-        });
     },
   },
 

@@ -65,9 +65,12 @@ export default {
         lastname: this.lastname,
         password: this.password,
         role: this.role,
-      })
+      }, { withCredentials: true })
         .then((res) => {
-          console.log(res);
+          if (res.data.status === 'notAuth') {
+            this.$store.commit('removeUser');
+            this.$router.replace({ name: 'login' });
+          }
 
           if (res.data.status === 'invalidFirstname') {
             this.error = 'Имя слишком короткое';
@@ -92,8 +95,7 @@ export default {
 
           this.loading = false;
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
           this.loading = false;
         });
     },
