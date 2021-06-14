@@ -23,7 +23,7 @@
       span Отсутствуют данные о рабочем времени.
       span Возможно следует обновить Wakatime Id.
       span
-        router-link( to="/options" tag="a") Подробнее
+        router-link( to="/slaves" tag="a") Подробнее
 </template>
 
 <script>
