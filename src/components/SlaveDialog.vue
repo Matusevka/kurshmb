@@ -101,7 +101,7 @@ export default {
     updateSlave() {
       this.isLoadingUpt = true;
 
-      axios.post('http://sopki.space:8080/api/v1/private/users', Object.assign(this.updUser, { method: 'update', id: this.slave._id }), { withCredentials: true })
+      axios.post('https://sopki.space/api/v1/private/users', Object.assign(this.updUser, { method: 'update', id: this.slave._id }), { withCredentials: true })
         .then((response) => {
           if (response.data.status === 'notAuth') {
             this.$store.commit('removeUser');
@@ -136,7 +136,7 @@ export default {
     removeSlave() {
       this.isLoading = true;
 
-      axios.post('http://sopki.space:8080/api/v1/private/users', {
+      axios.post('https://sopki.space/api/v1/private/users', {
         id: this.slave._id,
         method: 'remove',
       }, { withCredentials: true })

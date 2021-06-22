@@ -4,7 +4,7 @@ const actions = {
   getAllRange({ commit }, range = 'Last 7 Days') {
     commit('timeRangeData', null);
 
-    axios.post('http://sopki.space:8080/api/v1/private/timetracker/receive', {
+    axios.post('https://sopki.space/api/v1/private/timetracker/receive', {
       range,
       method: 'all',
       submethod: 'range',

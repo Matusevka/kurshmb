@@ -58,7 +58,7 @@ export default {
       this.error = null;
       this.loading = true;
 
-      axios.post('http://sopki.space:8080/api/v1/private/users', {
+      axios.post('https://sopki.space/api/v1/private/users', {
         method: 'create',
         username: this.login,
         firstname: this.firstname,

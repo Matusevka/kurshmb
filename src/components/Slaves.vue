@@ -54,7 +54,7 @@ export default {
     getUsers() {
       this.loading = true;
 
-      axios.post('http://sopki.space:8080/api/v1/private/users', {
+      axios.post('https://sopki.space/api/v1/private/users', {
         method: 'receive',
         submethod: 'all',
       }, { withCredentials: true })

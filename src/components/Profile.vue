@@ -23,7 +23,7 @@ export default {
 
   methods: {
     logout() {
-      axios.post('http://sopki.space:8080/api/v1/private/logout', {}, { withCredentials: true })
+      axios.post('https://sopki.space/api/v1/private/logout', {}, { withCredentials: true })
         .then(() => this.$router.replace({ name: 'login' }));
     },
   },

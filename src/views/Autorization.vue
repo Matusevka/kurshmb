@@ -58,7 +58,7 @@ export default ({
     auth() {
       this.loading = true;
 
-      axios.post('http://sopki.space:8080/api/v1/public/signin', {
+      axios.post('https://sopki.space/api/v1/public/signin', {
         username: this.username,
         password: this.password,
       }, { withCredentials: true })
